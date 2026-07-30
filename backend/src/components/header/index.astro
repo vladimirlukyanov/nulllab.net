@@ -66,9 +66,11 @@ const categories = (await getCollection('categories')).sort((a, b) => {
     <div class="container xxl">
         <div class="navbar">
             <div class="left">
-                <a href="/" class="link" title="NullLab homepage">
-                    <Logo class="logo"/>
-                </a>
+                <div>
+                    <a href="/" class="link" title="NullLab homepage">
+                        <Logo class="logo"/>
+                    </a>
+                </div>
             </div>
             <div class="center">
                 <ul class="nav">
@@ -87,16 +89,18 @@ const categories = (await getCollection('categories')).sort((a, b) => {
                 </ul>
             </div>
             <div class="right">
-                <a href="#" class="link toggle mainmenu">
-                    <svg viewBox="0 0 24 24" fill="none"
-                         stroke="currentColor" stroke-width="1.5"
-                         data-slot="icon" aria-hidden="true"
-                         width="24px">
-                        <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"></path>
-                    </svg>
-                </a>
+                <div>
+                    <a href="#" class="link toggle mainmenu">
+                        <svg viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="1.5"
+                             data-slot="icon" aria-hidden="true"
+                             width="24px">
+                            <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                        </svg>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
