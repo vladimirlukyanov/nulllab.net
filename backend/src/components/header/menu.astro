@@ -2,7 +2,9 @@
 import { getCollection } from 'astro:content';
 import { generate_rel_link } from '../../utils/links.ts';
 
-const categories = (await getCollection('categories')).sort((a, b) => {
+const categories = (await getCollection('categories')).filter((category) => {
+  return !category?.data.hidden
+}).sort((a, b) => {
   if (a.id < b.id) {
     return -1;
   }
@@ -19,7 +21,7 @@ const categories = (await getCollection('categories')).sort((a, b) => {
       const style = '--item-number : ' + index;
       return (
               <li class="item" style={style}>
-                  <a href={`/category/${category.id}/`}
+                  <a href={`/${category.id}/`}
                      title={category.data.title}
                      class="link">
                     {category.data.title}
