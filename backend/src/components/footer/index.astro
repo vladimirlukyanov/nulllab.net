@@ -116,9 +116,27 @@ import Modal from '~/components/modal/index.astro';
   );
 
   @include mixins.generate-component(
-      $footer-component,
-      'footer',
-      app.$config,
-      app.$theme
+    $footer-component,
+    'footer',
+    app.$config,
+    app.$theme
   );
+</style>
+
+<script>
+    document.addEventListener('readystatechange', function () {
+        if (document.readyState === 'interactive') {
+            // DOM is ready
+            document.querySelector('body').classList.remove('preload');
+        }
+        if (document.readyState === 'complete') {
+            // All resources loaded
+        }
+    })
+</script>
+
+<style is:global>
+    .preload * {
+        transition: none !important;
+    }
 </style>
