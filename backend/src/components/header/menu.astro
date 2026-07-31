@@ -1,43 +1,67 @@
 ---
-import {getCollection} from 'astro:content'
-import {generate_rel_link} from '../../utils/links.ts'
+import { getCollection } from 'astro:content';
+import { generate_rel_link } from '../../utils/links.ts';
 
 const categories = (await getCollection('categories')).sort((a, b) => {
-    if (a.id < b.id) {
-        return -1
-    }
-    if (a.id > b.id) {
-        return 1
-    }
-    return 0
-})
+  if (a.id < b.id) {
+    return -1;
+  }
+  if (a.id > b.id) {
+    return 1;
+  }
+  return 0;
+});
 ---
 
-<ul class="nav menu vertical">
-    {categories.length > 0 &&
-        categories.map((category) => {
-            return (
-                    <li class="item">
-                        <a href={`/category/${category.id}/`}
-                           title={category.data.title}
-                           class="link">
-                            {category.data.title}
-                        </a>
-                    </li>
-            )
-        })
-    }
+<ul class="nav menu vertical" style="--group-item : 0;">
+  {categories.length > 0 &&
+    categories.map((category, index) => {
+      const style = '--item-number : ' + index;
+      return (
+              <li class="item" style={style}>
+                  <a href={`/category/${category.id}/`}
+                     title={category.data.title}
+                     class="link">
+                    {category.data.title}
+                  </a>
+              </li>
+      );
+    })
+  }
 </ul>
 
 <style lang="scss">
   @use "sass:list";
   @use "sass:meta";
+  @use "sass:string";
 
   @use '~/styles/app.scss' as app;
 
   $menu: (
     _subclasses : (
+      '&.show' : (
+        _subclasses : (
+          '.item' : (
+            opacity: 1,
+            visibility: visible,
+            transform: translate(0),
+            _atrule : (
+              '@starting-style' : (
+                opacity: 0,
+                visibility: visible,
+                transform: translateY(-8px),
+              )
+            ),
+          )
+        )
+      ),
       '.item' : (
+        opacity: 0,
+        transform: translateY(-8px),
+        transition-delay: calc(.32s + var(--item-number) * .1s),
+        transition-duration: 240ms,
+        transition-property: string.unquote("opacity, transform, visibility"),
+        transition-timing-function: string.unquote("cubic-bezier(.4, 0, .6, 1), cubic-bezier(.4, 0, .6, 1), step-start"),
         _subclasses : (
           '.link' : (
             padding-block: 1rem,
