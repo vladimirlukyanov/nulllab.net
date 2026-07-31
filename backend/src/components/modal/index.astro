@@ -31,7 +31,7 @@ import { MobileMenu } from '~/components/header/index.ts'
     width: 100%,
     height: auto,
     z-index : app.get-config(app.$config, 'z-index.header'),
-    display: block,
+    display: none,
     transition: string.unquote('display .32s ease-in allow-discrete'),
     _subclasses : (
       '&.main' : (
@@ -42,13 +42,6 @@ import { MobileMenu } from '~/components/header/index.ts'
             --justify-content: start,
             transition: string.unquote("opacity .32s cubic-bezier(.4,0,.6,1) 80ms, visibility .32s"),
             opacity: 0,
-            visibility: hidden,
-            _atrule : (
-              '@starting-style' : (
-                opacity: 0,
-                visibility: hidden,
-              )
-            ),
             _subclasses : (
               '.section' : (
                 padding-inline: var(--padding-inline),
@@ -70,12 +63,15 @@ import { MobileMenu } from '~/components/header/index.ts'
       '&.show' : (
         display: block,
         transition: string.unquote('display .32s ease-out allow-discrete'),
-        opacity: 1,
         _subclasses : (
           '.overlay' : (
             opacity: 1,
-            visibility: visible,
             transition: string.unquote("opacity .32s cubic-bezier(.4,0,.6,1) 80ms, visibility .32s step-start 80ms"),
+            _atrule : (
+              '@starting-style' : (
+                opacity: 0,
+              )
+            ),
           )
         ),
         _responsive : (
