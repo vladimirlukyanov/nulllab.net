@@ -52,7 +52,7 @@ import {MobileMenu} from '~/components/header/index.ts'
                 height: 0,
                 overflow-y: scroll,
                 transition : string.unquote("height 373.5ms cubic-bezier(.4,0,.6,1) 80ms, background 373.5ms cubic-bezier(.4,0,.6,1) 80ms"),
-                background: oklch(0 0 0 / 0.25),
+                background: oklch(0.25 0.02 161.44 / 0.16),
                 _responsive : (
                   sm : (
                     max-width: 410px,
@@ -77,12 +77,12 @@ import {MobileMenu} from '~/components/header/index.ts'
             ),
             _subclasses : (
               '.section' : (
+                height: 100dvh,
                 _atrule : (
                   '@starting-style' : (
                     height: 0,
                   )
                 ),
-                height: 100dvh,
               )
             )
           )
