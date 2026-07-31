@@ -92,14 +92,12 @@ const categories = (await getCollection('categories')).sort((a, b) => {
             <div class="right">
                 <div class="relative">
                     <div class="group">
-                        <a href="#" class="link toggle mainmenu">
-                            <svg viewBox="0 0 24 24" fill="none"
-                                 stroke="currentColor" stroke-width="1.5"
-                                 data-slot="icon" aria-hidden="true"
-                                 width="24px">
-                                <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"></path>
+                        <a href="#" class="link main_menu toggle">
+                            <svg viewBox="0 0 35 35" class="icon close" width="24px" fill="none"
+                                 stroke="currentColor" stroke-width="2.5">
+                                <line x1="1.5" y1="7.5" x2="33.5" y2="7.5"/>
+                                <line x1="1.5" y1="17.5" x2="33.5" y2="17.5"/>
+                                <line x1="1.5" y1="27.5" x2="33.5" y2="27.5"/>
                             </svg>
                         </a>
                     </div>
@@ -117,6 +115,48 @@ const categories = (await getCollection('categories')).sort((a, b) => {
   @use "sass:map";
 
   @use "~/styles/app.scss" as app;
+
+  $hamburger-icon: (
+    _subclasses: (
+      '&.toggled' : (
+        _subclasses : (
+          'line' : (
+            _subclasses : (
+              '&:first-of-type, &:last-of-type' : (
+                transform-origin: 7px 23px,
+                translate: 0 -1.5px,
+                rotate: -45deg,
+              ),
+              '&:first-of-type' : (
+                transform-origin: 4px 13px,
+                rotate: 45deg,
+              ),
+              '&:nth-of-type(2)' : (
+                scale: 0% 100%,
+                opacity: 0
+              ),
+            )
+          )
+        )
+      ),
+      'line' : (
+        transition: none 300ms ease,
+        transition-property: string.unquote("transform-origin, translate, rotate, scale, opacity"),
+        _subclasses: (
+          '&:first-of-type' : (
+            transform-origin: 2px 8px
+          ),
+          '&:last-of-type' : (
+            transform-origin: 2px 26px
+          ),
+          '&:nth-of-type(2)' : (
+            transform-origin: center,
+            animation-duration: 150ms,
+          )
+        )
+      )
+    )
+  );
 
   $header-top: (
     opacity: 1,
@@ -252,7 +292,8 @@ const categories = (await getCollection('categories')).sort((a, b) => {
                         padding: 10px 5px,
                       )
                     )
-                  )
+                  ),
+                  '.icon.close' : $hamburger-icon
                 )
               )
             ),
@@ -375,9 +416,10 @@ const categories = (await getCollection('categories')).sort((a, b) => {
     buttons.forEach(button => button.addEventListener('click', (e) => {
         e.preventDefault()
 
-        if (button.classList.contains('mainmenu')) {
+        if (button.classList.contains('main_menu')) {
             document.getElementById('main_mobile_menu').classList.toggle('show')
             document.body.toggleAttribute('scroll-lock')
+            button.querySelector('svg').classList.toggle('toggled');
         }
     }))
 
