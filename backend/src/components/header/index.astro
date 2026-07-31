@@ -199,6 +199,7 @@ const categories = (await getCollection('categories')).sort((a, b) => {
     padding-inline: var(--padding-inline),
     border-bottom: var(--border-bottom),
     background: var(--background),
+    transition: string.unquote("background .32s ease-in-out"),
     /***/
     _responsive : (
       xxl : (
@@ -245,6 +246,13 @@ const categories = (await getCollection('categories')).sort((a, b) => {
 
   $header-bottom-modify: (
     _subclasses : (
+      '&.solid' : (
+        _colors: (
+          dark: (
+            sticky-background: oklch(0.24 0.04 164.03),
+          ),
+        ),
+      ),
       '.navbar' : (
         --grid-template-columns: auto 1fr,
         _subclasses : (
@@ -324,7 +332,7 @@ const categories = (await getCollection('categories')).sort((a, b) => {
   $header-sticky: (
     position: sticky,
     -webkit-backdrop-filter: blur(10px),
-    backdrop-filter: blur(15px) saturate(3) brightness(60%),
+    backdrop-filter: blur(15px) saturate(3),
     box-shadow: string.unquote("rgba(13, 13, 17, 0.4) 0px 5px 25px"),
     background: var(--sticky-background),
     _subclasses : (
@@ -420,6 +428,7 @@ const categories = (await getCollection('categories')).sort((a, b) => {
             document.getElementById('main_mobile_menu').classList.toggle('show')
             document.body.toggleAttribute('scroll-lock')
             button.querySelector('svg').classList.toggle('toggled');
+            nav.classList.toggle('solid')
         }
     }))
 
