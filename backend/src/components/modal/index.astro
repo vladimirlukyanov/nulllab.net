@@ -1,5 +1,5 @@
 ---
-import {MobileMenu} from '~/components/header/index.ts';
+import { MobileMenu } from '~/components/header/index.ts'
 ---
 
 <div id="main_mobile_menu" class="menu main">
@@ -31,7 +31,8 @@ import {MobileMenu} from '~/components/header/index.ts';
     width: 100%,
     height: auto,
     z-index : app.get-config(app.$config, 'z-index.header'),
-    display: none,
+    display: block,
+    transition: string.unquote('display .32s ease-in allow-discrete'),
     _subclasses : (
       '&.main' : (
         top: 47px,
@@ -39,7 +40,15 @@ import {MobileMenu} from '~/components/header/index.ts';
           '.overlay' : (
             --align-items : start,
             --justify-content: start,
-            transition: string.unquote("opacity .32s cubic-bezier(.4,0,.6,1) 80ms,visibility .32s step-end 80ms"),
+            transition: string.unquote("opacity .32s cubic-bezier(.4,0,.6,1) 80ms, visibility .32s"),
+            opacity: 0,
+            visibility: hidden,
+            _atrule : (
+              '@starting-style' : (
+                opacity: 0,
+                visibility: hidden,
+              )
+            ),
             _subclasses : (
               '.section' : (
                 padding-inline: var(--padding-inline),
@@ -60,6 +69,15 @@ import {MobileMenu} from '~/components/header/index.ts';
       ),
       '&.show' : (
         display: block,
+        transition: string.unquote('display .32s ease-out allow-discrete'),
+        opacity: 1,
+        _subclasses : (
+          '.overlay' : (
+            opacity: 1,
+            visibility: visible,
+            transition: string.unquote("opacity .32s cubic-bezier(.4,0,.6,1) 80ms, visibility .32s step-start 80ms"),
+          )
+        ),
         _responsive : (
           lg : (
             display: none,
@@ -70,10 +88,10 @@ import {MobileMenu} from '~/components/header/index.ts';
   );
 
   @include app.generate-component(
-      $menu,
-      'menu',
-      app.$config,
-      app.$theme,
-      (variable: (exclude : 'overlay'))
+    $menu,
+    'menu',
+    app.$config,
+    app.$theme,
+    (variable: (exclude : 'overlay'))
   );
 </style>
