@@ -125,12 +125,15 @@ import Modal from '~/components/modal/index.astro';
 
 <script>
     document.addEventListener('readystatechange', function () {
+        console.log(document.readyState);
         if (document.readyState === 'interactive') {
             // DOM is ready
-            document.querySelector('body').classList.remove('preload');
         }
         if (document.readyState === 'complete') {
             // All resources loaded
+            setTimeout(function () {
+                document.querySelector('body').classList.remove('preload');
+            }, 50)
         }
     })
 </script>
