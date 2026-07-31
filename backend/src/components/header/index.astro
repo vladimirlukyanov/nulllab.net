@@ -324,7 +324,7 @@ const categories = (await getCollection('categories')).sort((a, b) => {
   $header-sticky: (
     position: sticky,
     -webkit-backdrop-filter: blur(10px),
-    backdrop-filter: blur(15px) saturate(4),
+    backdrop-filter: blur(15px) saturate(3) brightness(60%),
     box-shadow: string.unquote("rgba(13, 13, 17, 0.4) 0px 5px 25px"),
     background: var(--sticky-background),
     _subclasses : (
