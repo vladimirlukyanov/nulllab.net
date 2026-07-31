@@ -4,7 +4,7 @@ import {MobileMenu} from '~/components/header/index.ts';
 
 <div id="main_mobile_menu" class="menu main">
     <div class="overlay show blurred">
-        <div class="card">
+        <div class="section">
             <MobileMenu/>
         </div>
     </div>
@@ -13,6 +13,7 @@ import {MobileMenu} from '~/components/header/index.ts';
 <style lang="scss">
   @use "sass:list";
   @use "sass:meta";
+  @use "sass:string";
 
   @use '~/styles/app.scss' as app;
 
@@ -34,6 +35,28 @@ import {MobileMenu} from '~/components/header/index.ts';
     _subclasses : (
       '&.main' : (
         top: 47px,
+        _subclasses : (
+          '.overlay' : (
+            --align-items : start,
+            --justify-content: start,
+            transition: string.unquote("opacity .32s cubic-bezier(.4,0,.6,1) 80ms,visibility .32s step-end 80ms"),
+            _subclasses : (
+              '.section' : (
+                padding-inline: var(--padding-inline),
+                padding-block: 20px,
+                border: none,
+                border-radius: 0,
+                width: 100%,
+                overflow-y: scroll,
+                _responsive : (
+                  sm : (
+                    max-width: 410px,
+                  )
+                )
+              )
+            )
+          )
+        )
       ),
       '&.show' : (
         display: block,
@@ -43,25 +66,6 @@ import {MobileMenu} from '~/components/header/index.ts';
           )
         )
       ),
-      '.overlay' : (
-        --align-items : start,
-        --justify-content: start,
-        _subclasses : (
-          '.card' : (
-            padding-inline: var(--padding-inline),
-            padding-block: 20px,
-            border: none,
-            border-radius: 0,
-            width: 100%,
-            overflow-y: scroll,
-            _responsive : (
-              sm : (
-                max-width: 410px,
-              )
-            )
-          )
-        )
-      )
     )
   );
 
