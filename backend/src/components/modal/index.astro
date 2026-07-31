@@ -1,5 +1,5 @@
 ---
-import { MobileMenu } from '~/components/header/index.ts'
+import {MobileMenu} from '~/components/header/index.ts'
 ---
 
 <div id="main_mobile_menu" class="menu main">
@@ -49,7 +49,10 @@ import { MobileMenu } from '~/components/header/index.ts'
                 border: none,
                 border-radius: 0,
                 width: 100%,
+                height: 0,
                 overflow-y: scroll,
+                transition : string.unquote("height 373.5ms cubic-bezier(.4,0,.6,1) 80ms, background 373.5ms cubic-bezier(.4,0,.6,1) 80ms"),
+                background: oklch(0 0 0 / 0.25),
                 _responsive : (
                   sm : (
                     max-width: 410px,
@@ -72,6 +75,16 @@ import { MobileMenu } from '~/components/header/index.ts'
                 opacity: 0,
               )
             ),
+            _subclasses : (
+              '.section' : (
+                _atrule : (
+                  '@starting-style' : (
+                    height: 0,
+                  )
+                ),
+                height: 100dvh,
+              )
+            )
           )
         ),
         _responsive : (
@@ -83,11 +96,5 @@ import { MobileMenu } from '~/components/header/index.ts'
     )
   );
 
-  @include app.generate-component(
-    $menu,
-    'menu',
-    app.$config,
-    app.$theme,
-    (variable: (exclude : 'overlay'))
-  );
+  @include app.generate-component($menu, 'menu', app.$config, app.$theme);
 </style>
