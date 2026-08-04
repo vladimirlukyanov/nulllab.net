@@ -80,7 +80,7 @@ const categories = await getCollection('categories');
 
   @include mixins.generate-component(
       $category_header,
-      'category_header',
+      '.category_header',
       app.$config,
       app.$theme
   );
@@ -179,7 +179,7 @@ const categories = await getCollection('categories');
 
   @include mixins.generate-component(
       $categories,
-      'categories',
+      '.categories',
       app.$config,
       app.$theme
   );

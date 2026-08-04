@@ -37,10 +37,10 @@ const {title, description, published_date, updated_date, featured_image} = Astro
   @use "sass:meta";
   @use "sass:map";
 
-  @use "../styles/app.scss" as app;
+  @use "~/styles/app.scss" as app;
 
-  @use "@nulllogic/scssleon/scss/mixins.scss" as mixins;
-  @use "@nulllogic/scssleon/scss/functions.scss" as functions;
+  @use "~/styles/scss/mixins.scss" as mixins;
+  @use "~/styles/scss/functions.scss" as functions;
 
   $main-section: (
     margin: 0 0 15px 0,
@@ -49,7 +49,7 @@ const {title, description, published_date, updated_date, featured_image} = Astro
 
   @include mixins.generate-component(
       $main-section,
-      "main",
+      '.main',
       app.$config,
       app.$theme
   );

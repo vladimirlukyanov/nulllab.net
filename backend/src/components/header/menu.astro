@@ -74,5 +74,5 @@ const categories = (await getCollection('categories')).filter((category) => {
     )
   );
 
-  @include app.generate-component($menu, 'menu', app.$config, app.$theme);
+  @include app.generate-component($menu, '.menu', app.$config, app.$theme);
 </style>

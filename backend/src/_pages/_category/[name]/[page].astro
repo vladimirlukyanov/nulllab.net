@@ -141,7 +141,7 @@ const {page, posts, category} = Astro.props;
 
   @include mixins.generate-component(
           $category_name,
-          'category_name',
+          '.category_name',
           app.$config,
           app.$theme
   );
@@ -232,7 +232,7 @@ const {page, posts, category} = Astro.props;
 
   @include mixins.generate-component(
           $categories,
-          'categories',
+          '.categories',
           app.$config,
           app.$theme
   );

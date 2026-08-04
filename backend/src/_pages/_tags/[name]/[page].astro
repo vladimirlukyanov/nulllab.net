@@ -139,7 +139,7 @@ const {posts, tag, page} = Astro.props;
 
   @include mixins.generate-component(
           $tag_name,
-          'tag_name',
+          '.tag_name',
           app.$config,
           app.$theme
   );
@@ -227,7 +227,7 @@ const {posts, tag, page} = Astro.props;
 
   @include mixins.generate-component(
           $tagged_posts,
-          'tagged_posts',
+          '.tagged_posts',
           app.$config,
           app.$theme
   );
