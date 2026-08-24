@@ -62,7 +62,7 @@ const categories = (await getCollection('categories')).sort((a, b) => {
     </div>
 </div>
 
-<nav class="navigation header bottom" role="navigation" itemscope
+<nav class="navigation header bottom sticky" role="navigation" itemscope
      itemtype="http://schema.org/SiteNavigationElement">
     <div class="container xxl">
         <div class="navbar">
@@ -379,10 +379,10 @@ const categories = (await getCollection('categories')).sort((a, b) => {
   const stickyNavigation = () => {
     if (window.scrollY > nav_top.offsetHeight) {
       // nav offsetHeight = height of nav
-      nav_top.classList.add('modify');
+      // nav_top.classList.add('modify');
       nav_bottom.classList.add('sticky', 'modify');
     } else {
-      nav_top.classList.remove('modify');
+      // nav_top.classList.remove('modify');
       nav_bottom.classList.remove('sticky', 'modify');
     }
   };
