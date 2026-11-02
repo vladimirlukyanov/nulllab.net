@@ -200,7 +200,7 @@ const categories = (await getCollection('categories')).sort((a, b) => {
     padding-inline: var(--padding-inline),
     border-bottom: var(--border-bottom),
     background: var(--background),
-    transition: string.unquote("background .32s ease-in-out"),
+    // transition: string.unquote("background .32s ease-in-out"),
     /***/
     _responsive : (
       xxl : (
@@ -250,7 +250,7 @@ const categories = (await getCollection('categories')).sort((a, b) => {
       '&.solid' : (
         _colors: (
           dark: (
-            sticky-background: oklch(0.24 0.04 164.03),
+            sticky-background: oklch(27% .04 161 / .75),
           ),
         ),
       ),
