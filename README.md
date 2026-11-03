@@ -1,4 +1,4 @@
-# NullLab.net
+# <a href="https://nulllab.net" target="_blank">NullLab.net</a>
 
 <p align="left">
     <picture>
@@ -6,25 +6,3 @@
       <img alt="SCSSleon framework" src="./.imgz/hello.jpg">
     </picture>
 </p>
-
-```
-                  clap
-                                        clap
-                                                                         
-                       Clap      clap
-                clap
-        clap              clap    clap      Clap
-                    clap
-                clap       clap         clap
-                        ,         clap
-               clap   clap   Clap        clap
-         clap                 .  \  `
-                Clap   \ ( (\  ) /
-                     `  ` / _\      ,
-                          \(")
-                ___    .-  )=|
-               (`  ') ' _  /'|
-               |-n___n '  (/\|
-_______________|_L___J__ <   L _______________________
-------------------------------------------------
-```
