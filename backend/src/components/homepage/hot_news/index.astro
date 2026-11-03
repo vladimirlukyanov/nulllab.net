@@ -45,6 +45,7 @@ const posts_column_3 = posts.filter(
                                                             formats={['webp']}
                                                             src={post.data.image.url}
                                                             alt={post.data.image.alt}
+                                                            loading={'lazy'}
                                                     />
                                                 </span>
                                       <span class="title">{post.data.short_description ??
@@ -155,7 +156,6 @@ const posts_column_3 = posts.filter(
                                    title={post.data.title}>
                                             <span class="image">
                                                 <Picture
-                                                        loading={'lazy'}
                                                         src={post.data.image.url}
                                                         formats={['webp']}
                                                         width={960}
@@ -166,7 +166,9 @@ const posts_column_3 = posts.filter(
                                                           1280]}
                                                         fetchpriority={'high'}
                                                         alt={post.data.image.alt}
-                                                        class="img"/>
+                                                        class="img"
+                                                        loading={'lazy'}
+                                                />
                                             </span>
                                     <span class="text">
                                                 <span class="subtitle">{post.data.short_description}</span>

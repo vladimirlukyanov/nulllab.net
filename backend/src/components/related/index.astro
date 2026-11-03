@@ -4,43 +4,37 @@ const {posts, title} = Astro?.props;
 ---
 {posts.length > 0 &&
 <div class="related">
-    {title &&
-            <h2 class="title">{title}</h2>
-    }
+  {title &&
+          <h2 class="title">{title}</h2>
+  }
     <div class="posts">
-        {posts.map((post) => {
-            if (typeof (post) === 'undefined') return;
-            return (
-                    <div class="post">
-                        {post?.data?.image &&
-                                <a href={`/${post.id.substring(
-                                    5)}/`}>
-
-                                    <Picture
-                                            class="image"
-                                            width={330}
-                                            formats={['webp']}
-                                            breakpoints={[370]}
-                                            aspectRatio={1.3333333333333333}
-                                            src={post.data.image.url}
-                                            alt={post.data.image.alt}
-                                    />
-                                </a>
-                        }
-                        <div class="category">
-                            <a href={'#'}
-                               class="link">{post?.data?.category}</a>
-                        </div>
-                        <a href={`/${post.id.substring(
-                            5)}/`} class="title">
-                            {post.data.title}
-                        </a>
-                    </div>
-            )
-        })}
+      {posts.map((post) => {
+        if (typeof (post) === 'undefined') return;
+        return (
+                <div class="post">
+                  {post?.data?.image &&
+                          <a href={`/${post.id.substring(
+                            5)}/`}>
+                              <Picture
+                                      class="image"
+                                      width={330}
+                                      formats={['webp']}
+                                      breakpoints={[370]}
+                                      src={post.data.image.url}
+                                      alt={post.data.image.alt}
+                              />
+                          </a>
+                  }
+                    <a href={`/${post.id.substring(
+                      5)}/`} class="title" title={post.data.title}>
+                      {post.data.title}
+                    </a>
+                </div>
+        )
+      })}
     </div>
 </div>
-    }
+  }
 
 <style lang="scss">
   @use "sass:list";
@@ -55,8 +49,10 @@ const {posts, title} = Astro?.props;
     /***/
     _subclasses: (
       '> .title' : (
-        font-size: 2rem,
-        margin: 0 0 15px 0,
+        font-size: clamp(1.6034rem, 1.6034rem + 0.3926vw, 2.1273rem),
+        line-height: initial,
+        font-weight: 600,
+        margin: 2rem 0 1rem 0,
       ),
       '.posts' : (
         display: grid,
@@ -92,7 +88,10 @@ const {posts, title} = Astro?.props;
                 )
               ),
               '.title' : (
-                font-size: 1.5rem,
+                font-size: 1.25rem,
+                display: block,
+                font-weight: 400,
+                line-height: 1.5rem,
               )
             )
           ),
@@ -102,9 +101,9 @@ const {posts, title} = Astro?.props;
   );
 
   @include app.generate-component(
-      $related,
-      '.related',
-      app.$config,
-      app.$theme
+    $related,
+    '.related',
+    app.$config,
+    app.$theme
   );
 </style>
