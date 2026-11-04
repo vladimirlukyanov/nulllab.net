@@ -11,20 +11,21 @@ import Link from '~/components/link.astro'
 import {getEntries, getCollection} from 'astro:content'
 import {render} from 'astro:content'
 
-import {format_date} from '../lib/utils'
+import {format_date} from '~/lib/utils'
+import {reading_time} from "~/utils/text.ts";
 
 export async function getStaticPaths() {
-    const posts = await getCollection('blog')
+  const posts = await getCollection('blog')
 
-    return posts.map((post) => {
-        const [year, slug] = post.id.split('/')
-        return {
-            params: {
-                slug: slug.toString(),
-            },
-            props: post,
-        }
-    })
+  return posts.map((post) => {
+    const [year, slug] = post.id.split('/')
+    return {
+      params: {
+        slug: slug.toString(),
+      },
+      props: post,
+    }
+  })
 }
 
 const post = Astro.props
@@ -33,21 +34,21 @@ const {Content} = await render(post)
 const posts = await getCollection('blog');
 const authors = post.data.authors ? await getEntries(post.data.authors) : null
 const categories = post.data.categories
-    ? await getEntries(post.data.categories)
-    : null
+  ? await getEntries(post.data.categories)
+  : null
 const tags = post.data.tags ? await getEntries(post.data.tags) : null
 const related_posts = post.data.related_posts ? await getEntries(
-    post.data.related_posts) : null
+  post.data.related_posts) : null
 
 const sidebar_posts = posts.filter((_post) => {
-    return _post.id !== post.id
+  return _post.id !== post.id
 }).filter((_post) => {
-    if (post.data?.related_posts && post.data?.related_posts.length > 0) {
-        return !post.data?.related_posts.some(related_post => _post?.id.includes(related_post?.id));
-    }
-    return false;
+  if (post.data?.related_posts && post.data?.related_posts.length > 0) {
+    return !post.data?.related_posts.some(related_post => _post?.id.includes(related_post?.id));
+  }
+  return false;
 }).sort(
-    (a, b) => b.data.published_date.valueOf() - a.data.published_date.valueOf(),
+  (a, b) => b.data.published_date.valueOf() - a.data.published_date.valueOf(),
 ).slice(0, 10);
 ---
 
@@ -59,26 +60,59 @@ const sidebar_posts = posts.filter((_post) => {
                 <div class="post">
                     <article class="content" itemscope
                              itemtype="https://schema.org/Article">
-                        {false &&
-                                <div class="category">
-                                    {post.data.categories.map((category) => {
-                                        return (
-                                                <a href={'/category/' + category.id}
-                                                   class="link">{category.id}</a>
-                                        )
-                                    })}
-                                </div>
-                        }
+                      {false &&
+                              <div class="category">
+                                {post.data.categories.map((category) => {
+                                  return (
+                                          <a href={'/category/' + category.id}
+                                             class="link">{category.id}</a>
+                                  )
+                                })}
+                              </div>
+                      }
                         <h1 class="title"
                             itemprop="headline">{post.data.title}</h1>
+
+                        <div class="info">
+                            By
+                          {authors.map((author) => {
+
+                            return (
+                                    <div class="author">
+                                        <span class="image">
+                                            <Image width="30" src={author.data.image.url} alt={author.data.image.alt}
+                                                   class="profile"/>
+                                        </span>
+                                        <a href="#" title={author.data.title}>{author.data.title}</a>
+                                    </div>
+                            )
+                          })}
+                            <div>
+                                ·
+                            </div>
+                            <div>
+                              {reading_time(post.body)}
+                            </div>
+                            <div>
+                                ·
+                            </div>
+                            <div>
+                                Published
+                                {post.data.published_date.toLocaleDateString('en-us', {
+                                    year: 'numeric',
+                                    month: 'short',
+                                    day: 'numeric',
+                                })}
+                            </div>
+                        </div>
 
                         <p class="description">{post.data.description}</p>
                         <Content components={{a: Link}}/>
                     </article>
 
-                    {related_posts &&
-                            <RelatedPosts posts={related_posts} title={'You might also enjoy:'}/>
-                    }
+                  {related_posts &&
+                          <RelatedPosts posts={related_posts} title={'You might also enjoy:'}/>
+                  }
                 </div>
 
             </div>
@@ -128,6 +162,31 @@ const sidebar_posts = posts.filter((_post) => {
                 )
               ),
               '.title': (),
+              '.info': (
+                display: flex,
+                align-items: center,
+                gap: .5rem,
+                margin: 0 0 1rem 0,
+                _subclasses: (
+                  '.author' : (
+                    display: flex,
+                    align-items: center,
+                    gap: .5rem,
+                    _subclasses: (
+                      '.image' : (
+                        width: 25px,
+                        display: inline-block,
+                        _subclasses: (
+                          '.profile' : (
+                            border-radius: 50%,
+                            margin: 0,
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              ),
               '.information': (
                 display: flex,
                 align-items: center,

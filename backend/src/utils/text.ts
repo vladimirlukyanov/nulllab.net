@@ -41,3 +41,9 @@ export function words_limit(input, x, options = {}) {
 
     return result;
 }
+
+export function reading_time(body: string = ''): string {
+    const words = body.trim().split(/\s+/).length;
+    const minutes = Math.max(1, Math.round(words / 200)); // assumes 200 words per minute
+    return `${minutes} min read`;
+}
