@@ -52,24 +52,12 @@ export function reading_time(body: string = ''): string {
  * Calculates reading time from an element's text content
  * and formats it as an ISO 8601 duration (e.g., "PT4M").
  *
- * @param {string} selector - The CSS selector for the body text container.
- * @param {number} wordsPerMinute - Average reading speed (default: 200 WPM).
+ * @param {string} body - The CSS selector for the body text container.
  * @returns {string} ISO 8601 duration string for schema.org 'timeRequired'.
  */
-function reading_time_schema(selector = 'body', wordsPerMinute = 200) {
-    const element = document.querySelector(selector);
-    if (!element) return 'PT0M';
-
-    // 1. Extract clean text and strip extra whitespace
-    const text = element.innerText || element.textContent;
-    const cleanText = text.trim().replace(/\s+/g, ' ');
-
-    // 2. Count words (handling empty blocks safely)
-    const wordCount = cleanText ? cleanText.split(' ').length : 0;
-
-    // 3. Compute raw minutes (rounding up to avoid a "0 minute" read)
-    const minutes = Math.ceil(wordCount / wordsPerMinute);
-
+export function reading_time_schema(body: string = ''): string {
+    const words = body.trim().split(/\s+/).length;
+    const minutes = Math.max(1, Math.round(words / 200)); // assumes 200 words per minute
     // 4. Return as ISO 8601 Duration format (e.g., PT[X]M)
     return `PT${minutes}M`;
 }

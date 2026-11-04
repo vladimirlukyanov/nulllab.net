@@ -12,7 +12,7 @@ import {getEntries, getCollection} from 'astro:content'
 import {render} from 'astro:content'
 
 import {format_date} from '~/lib/utils'
-import {reading_time} from "~/utils/text.ts";
+import {reading_time, reading_time_schema} from "~/utils/text.ts";
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog')
@@ -74,47 +74,42 @@ const sidebar_posts = posts.filter((_post) => {
                             itemprop="headline">{post.data.title}</h1>
 
                         <div class="info">
-                          {authors.map((author) => {
-
-                            return (
-                                    <div class="author">
-                                        By
-                                        <span class="image">
+                            <div class="authors">
+                                By
+                                {authors.map((author) => {
+                                    return (
+                                      <div class="author">
+                                          <span class="image">
                                             <Image width="30" src={author.data.image.url} alt={author.data.image.alt}
                                                    class="profile"/>
                                         </span>
-                                        <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+                                          <span itemprop="author" itemscope itemtype="https://schema.org/Person">
                                             <a href="#" itemprop="url" title={author.data.title}>
                                                 <span itemprop="name">{author.data.title}</span>
                                             </a>
                                         </span>
-                                    </div>
-                            )
-                          })}
-                            <div class="time">
-                                <div>
-                                    <span itemprop="timeRequired" content="PT4M">
+                                      </div>
+                                    )
+                                })}
+                            </div>
+                            <div class="dates">
+                                <div class="reading_time">
+                                    <span itemprop="timeRequired" content={reading_time_schema(post.body)}>
                                         {reading_time(post.body)}
                                     </span>
                                 </div>
-                                <div>
-                                    ·
-                                </div>
-                                <div>
+                                <div class="published_date">
                                     Published
                                     <span itemprop="datePublished" content={post.data.published_date}>
                                         {post.data.published_date.toLocaleDateString('en-us', {
-                                            year: 'numeric',
-                                            month: 'short',
-                                            day: 'numeric',
+                                          year: 'numeric',
+                                          month: 'short',
+                                          day: 'numeric',
                                         })}
                                     </span>
                                 </div>
                               {post.data.updated_date && (
-                                      <div>
-                                          ·
-                                      </div>
-                                      <div>
+                                      <div class="updated_date">
                                           Updated
                                         {post.data.published_date.toLocaleDateString('en-us', {
                                           year: 'numeric',
@@ -189,11 +184,16 @@ const sidebar_posts = posts.filter((_post) => {
                 grid-template-rows: auto,
                 margin: 0 0 1.5rem 0,
                 _subclasses: (
-                  '.author' : (
+                  '.authors' : (
                     display: flex,
                     align-items: center,
                     gap: .5rem,
                     _subclasses: (
+                      '.author' : (
+                        display: flex,
+                        align-items: center,
+                        gap: .5rem,
+                      ),
                       '&:after' : (
                         content : '·',
                         display: none,
@@ -215,10 +215,12 @@ const sidebar_posts = posts.filter((_post) => {
                       )
                     )
                   ),
-                  '.time' : (
-                    display: flex,
+                  '.dates' : (
+                    display: grid,
                     align-items: center,
                     gap: .5rem,
+                    grid-template-columns: auto auto 1fr,
+                    grid-template-rows: auto,
                   )
                 ),
                 _responsive : (
