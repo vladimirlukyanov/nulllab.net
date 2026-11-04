@@ -83,24 +83,32 @@ const sidebar_posts = posts.filter((_post) => {
                                             <Image width="30" src={author.data.image.url} alt={author.data.image.alt}
                                                    class="profile"/>
                                         </span>
-                                        <a href="#" title={author.data.title}>{author.data.title}</a>
+                                        <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+                                            <a href="#" itemprop="url" title={author.data.title}>
+                                                <span itemprop="name">{author.data.title}</span>
+                                            </a>
+                                        </span>
                                     </div>
                             )
                           })}
                             <div class="time">
                                 <div>
-                                  {reading_time(post.body)}
+                                    <span itemprop="timeRequired" content="PT4M">
+                                        {reading_time(post.body)}
+                                    </span>
                                 </div>
                                 <div>
                                     ·
                                 </div>
                                 <div>
                                     Published
-                                  {post.data.published_date.toLocaleDateString('en-us', {
-                                    year: 'numeric',
-                                    month: 'short',
-                                    day: 'numeric',
-                                  })}
+                                    <span itemprop="datePublished" content={post.data.published_date}>
+                                        {post.data.published_date.toLocaleDateString('en-us', {
+                                            year: 'numeric',
+                                            month: 'short',
+                                            day: 'numeric',
+                                        })}
+                                    </span>
                                 </div>
                               {post.data.updated_date && (
                                       <div>
