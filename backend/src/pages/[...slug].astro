@@ -186,6 +186,15 @@ const sidebar_posts = posts.filter((_post) => {
                     align-items: center,
                     gap: .5rem,
                     _subclasses: (
+                      '&:after' : (
+                        content : '·',
+                        display: none,
+                        _responsive : (
+                          lg : (
+                            display: inline-block,
+                          )
+                        )
+                      ),
                       '.image' : (
                         width: 25px,
                         display: inline-block,
