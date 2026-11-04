@@ -74,11 +74,11 @@ const sidebar_posts = posts.filter((_post) => {
                             itemprop="headline">{post.data.title}</h1>
 
                         <div class="info">
-                            By
                           {authors.map((author) => {
 
                             return (
                                     <div class="author">
+                                        By
                                         <span class="image">
                                             <Image width="30" src={author.data.image.url} alt={author.data.image.alt}
                                                    class="profile"/>
@@ -87,22 +87,34 @@ const sidebar_posts = posts.filter((_post) => {
                                     </div>
                             )
                           })}
-                            <div>
-                                ·
-                            </div>
-                            <div>
-                              {reading_time(post.body)}
-                            </div>
-                            <div>
-                                ·
-                            </div>
-                            <div>
-                                Published
-                                {post.data.published_date.toLocaleDateString('en-us', {
+                            <div class="time">
+                                <div>
+                                  {reading_time(post.body)}
+                                </div>
+                                <div>
+                                    ·
+                                </div>
+                                <div>
+                                    Published
+                                  {post.data.published_date.toLocaleDateString('en-us', {
                                     year: 'numeric',
                                     month: 'short',
                                     day: 'numeric',
-                                })}
+                                  })}
+                                </div>
+                              {post.data.updated_date && (
+                                      <div>
+                                          ·
+                                      </div>
+                                      <div>
+                                          Updated
+                                        {post.data.published_date.toLocaleDateString('en-us', {
+                                          year: 'numeric',
+                                          month: 'short',
+                                          day: 'numeric',
+                                        })}
+                                      </div>
+                              )}
                             </div>
                         </div>
 
@@ -163,9 +175,10 @@ const sidebar_posts = posts.filter((_post) => {
               ),
               '.title': (),
               '.info': (
-                display: flex,
-                align-items: center,
+                display: grid,
                 gap: .5rem,
+                grid-template-columns: 1fr,
+                grid-template-rows: auto,
                 margin: 0 0 1rem 0,
                 _subclasses: (
                   '.author' : (
@@ -184,6 +197,17 @@ const sidebar_posts = posts.filter((_post) => {
                         )
                       )
                     )
+                  ),
+                  '.time' : (
+                    display: flex,
+                    align-items: center,
+                    gap: .5rem,
+                  )
+                ),
+                _responsive : (
+                  lg : (
+                    grid-template-columns: auto 1fr,
+                    grid-template-rows: auto,
                   )
                 )
               ),
