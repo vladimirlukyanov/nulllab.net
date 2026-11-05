@@ -63,6 +63,7 @@ const sidebar_posts = posts.filter((_post) => {
 
                         <div class="category">
                           {post.data.categories.map((category) => {
+                              console.log()
                             return (
                                     <a href={'/category/' + category.id}
                                        class="link" title={category}>{category.id}</a>
