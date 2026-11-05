@@ -79,6 +79,11 @@ const authors = defineCollection({
                 alt: z.string(),
             })
             .optional(),
+        links: z.object({
+            instagram: z.string().optional(),
+            github: z.string().optional(),
+            website: z.string().optional(),
+        }).optional(),
     })
 });
 
