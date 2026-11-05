@@ -60,16 +60,17 @@ const sidebar_posts = posts.filter((_post) => {
                 <div class="post">
                     <article class="content" itemscope
                              itemtype="https://schema.org/Article">
-                      {false &&
-                              <div class="category">
-                                {post.data.categories.map((category) => {
-                                  return (
-                                          <a href={'/category/' + category.id}
-                                             class="link">{category.id}</a>
-                                  )
-                                })}
-                              </div>
-                      }
+
+                        <div class="category">
+                          {post.data.categories.map((category) => {
+                              console.log(category);
+                            return (
+                                    <a href={'/category/' + category.id}
+                                       class="link" title={category}>{category.id}</a>
+                            )
+                          })}
+                        </div>
+
                         <h1 class="title"
                             itemprop="headline">{post.data.title}</h1>
 
@@ -170,6 +171,8 @@ const sidebar_posts = posts.filter((_post) => {
             _subclasses: (
               '.category' : (
                 text-transform: capitalize,
+                display: flex,
+                margin: 0 0 .25rem 0,
                 _subclasses: (
                   '.link' : (
                     color: #8c602e,
@@ -215,12 +218,12 @@ const sidebar_posts = posts.filter((_post) => {
                     color: var(--text),
                     font-size: 0.875rem,
                     _colors : (
-                        light : (
-                            text: oklch(0.684 0.00275 157.5)
-                        ),
-                        dark : (
-                            text: oklch(0.52065 0 337.5),
-                        )
+                      light : (
+                        text: oklch(0.684 0.00275 157.5)
+                      ),
+                      dark : (
+                        text: oklch(0.52065 0 337.5),
+                      )
                     ),
                     _subclasses: (
                       '.reading_time' : (
@@ -230,7 +233,7 @@ const sidebar_posts = posts.filter((_post) => {
                             display: none,
                             padding-right: .25rem,
                             _responsive : (
-                              md : (
+                              lg : (
                                 display: inline-block,
                               )
                             )
