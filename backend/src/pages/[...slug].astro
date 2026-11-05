@@ -63,7 +63,6 @@ const sidebar_posts = posts.filter((_post) => {
 
                         <div class="category">
                           {post.data.categories.map((category) => {
-                              console.log()
                             return (
                                     <a href={'/category/' + category.id}
                                        class="link" title={category}>{category.id}</a>
@@ -85,7 +84,7 @@ const sidebar_posts = posts.filter((_post) => {
                                                    class="profile"/>
                                         </span>
                                             <span itemprop="author" itemscope itemtype="https://schema.org/Person">
-                                            <a href="#" itemprop="url" title={author.data.title}>
+                                            <a href={'/authors/' + author.id} itemprop="url" title={author.data.title}>
                                                 <span itemprop="name">{author.data.title}</span>
                                             </a>
                                         </span>

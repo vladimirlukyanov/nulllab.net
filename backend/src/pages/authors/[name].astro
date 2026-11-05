@@ -31,7 +31,8 @@ const { Content } = await render(author)
 ---
 
 <AuthorsLayout title={author.data.title} description={author.data.description}>
-    <div class="author">
+    <div class="author" itemscope itemtype="https://schema.org">
+        <span itemprop="name" content={author.data.title}></span>
         <div class="container xxl">
             <div class="header">
                 <div>
@@ -49,9 +50,9 @@ const { Content } = await render(author)
                     </div>
                 </div>
             </div>
-            <div class="content">
-                <h1 class="title">{author.data.title}</h1>
-                <p>{author.data.position}</p>
+            <div class="content" itemprop="mainEntity" itemscope itemtype="https://schema.org">
+                <h1 class="title" itemprop="name">{author.data.title}</h1>
+                <p itemprop="jobTitle">{author.data.position}</p>
                 <Content components={{ a: Link }}/>
             </div>
             <RelatedPosts posts={author_posts} title={'Author posts:'}/>
