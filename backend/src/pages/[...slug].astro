@@ -194,15 +194,6 @@ const sidebar_posts = posts.filter((_post) => {
                         align-items: center,
                         gap: .5rem,
                       ),
-                      '&:after' : (
-                        content : '·',
-                        display: none,
-                        _responsive : (
-                          lg : (
-                            display: inline-block,
-                          )
-                        )
-                      ),
                       '.image' : (
                         width: 25px,
                         display: inline-block,
@@ -221,7 +212,31 @@ const sidebar_posts = posts.filter((_post) => {
                     gap: .615rem,
                     grid-template-columns: auto,
                     grid-template-rows: auto,
+                    color: var(--text),
+                    font-size: 0.875rem,
+                    _colors : (
+                        light : (
+                            text: oklch(0.684 0.00275 157.5)
+                        ),
+                        dark : (
+                            text: oklch(0.52065 0 337.5),
+                        )
+                    ),
                     _subclasses: (
+                      '.reading_time' : (
+                        _subclasses: (
+                          '&:before' : (
+                            content : '·',
+                            display: none,
+                            padding-right: .25rem,
+                            _responsive : (
+                              md : (
+                                display: inline-block,
+                              )
+                            )
+                          )
+                        )
+                      ),
                       '.published_date' : (
                         _subclasses: (
                           '&:before' : (
