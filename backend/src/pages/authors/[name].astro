@@ -31,8 +31,7 @@ const { Content } = await render(author)
 ---
 
 <AuthorsLayout title={author.data.title} description={author.data.description}>
-    <div class="author" itemscope itemtype="https://schema.org">
-        <span itemprop="name" content={author.data.title}></span>
+    <div class="author" itemscope itemtype="https://schema.org/Person">
         <div class="container xxl">
             <div class="header">
                 <div>
@@ -50,10 +49,14 @@ const { Content } = await render(author)
                     </div>
                 </div>
             </div>
-            <div class="content" itemprop="mainEntity" itemscope itemtype="https://schema.org">
-                <h1 class="title" itemprop="name">{author.data.title}</h1>
-                <p itemprop="jobTitle">{author.data.position}</p>
-                <Content components={{ a: Link }}/>
+            <div class="content">
+                <div class="top">
+                    <h1 class="title" itemprop="name">{author.data.title}</h1>
+                    <p itemprop="jobTitle">{author.data.position}</p>
+                </div>
+                <div class="bottom">
+                    <Content components={{ a: Link }}/>
+                </div>
             </div>
             <RelatedPosts posts={author_posts} title={'Author posts:'}/>
         </div>
@@ -84,6 +87,9 @@ const { Content } = await render(author)
             gap: 5px,
           )
         )
+      ),
+      '.top' : (
+        text-align: center,
       ),
       '.title' : (
         text-transform: capitalize,
