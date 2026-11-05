@@ -76,21 +76,21 @@ const sidebar_posts = posts.filter((_post) => {
                         <div class="info">
                             <div class="authors">
                                 By
-                                {authors.map((author) => {
-                                    return (
-                                      <div class="author">
+                              {authors.map((author) => {
+                                return (
+                                        <div class="author">
                                           <span class="image">
                                             <Image width="30" src={author.data.image.url} alt={author.data.image.alt}
                                                    class="profile"/>
                                         </span>
-                                          <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+                                            <span itemprop="author" itemscope itemtype="https://schema.org/Person">
                                             <a href="#" itemprop="url" title={author.data.title}>
                                                 <span itemprop="name">{author.data.title}</span>
                                             </a>
                                         </span>
-                                      </div>
-                                    )
-                                })}
+                                        </div>
+                                )
+                              })}
                             </div>
                             <div class="dates">
                                 <div class="reading_time">
@@ -218,9 +218,45 @@ const sidebar_posts = posts.filter((_post) => {
                   '.dates' : (
                     display: grid,
                     align-items: center,
-                    gap: .5rem,
-                    grid-template-columns: auto auto 1fr,
+                    gap: .615rem,
+                    grid-template-columns: auto,
                     grid-template-rows: auto,
+                    _subclasses: (
+                      '.published_date' : (
+                        _subclasses: (
+                          '&:before' : (
+                            content : '·',
+                            display: none,
+                            padding-right: .25rem,
+                            _responsive : (
+                              md : (
+                                display: inline-block,
+                              )
+                            )
+                          )
+                        )
+                      ),
+                      '.updated_date' : (
+                        _subclasses: (
+                          '&:before' : (
+                            content : '·',
+                            display: none,
+                            padding-right: .25rem,
+                            _responsive : (
+                              md : (
+                                display: inline-block,
+                              )
+                            )
+                          )
+                        )
+                      )
+                    ),
+                    _responsive : (
+                      md : (
+                        grid-template-columns: auto auto 1fr,
+                        grid-template-rows: auto,
+                      )
+                    )
                   )
                 ),
                 _responsive : (
