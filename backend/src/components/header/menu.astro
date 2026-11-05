@@ -21,7 +21,7 @@ const categories = (await getCollection('categories')).filter((category) => {
       const style = '--item-number : ' + index;
       return (
               <li class="item" style={style}>
-                  <a href={`/${category.id}/`}
+                  <a href={`/category/${category.id}/`}
                      title={category.data.title}
                      class="link">
                     {category.data.title}

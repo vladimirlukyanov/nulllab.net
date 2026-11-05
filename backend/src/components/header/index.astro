@@ -79,7 +79,7 @@ const categories = (await getCollection('categories')).sort((a, b) => {
                     categories.map((category) => {
                       return (
                               <li class="item">
-                                  <a href={`/${category.id}/`}
+                                  <a href={`/category/${category.id}/`}
                                      class="link">
                                     {category.data.title}
                                   </a>
