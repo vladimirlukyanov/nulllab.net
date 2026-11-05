@@ -1,11 +1,11 @@
 ---
-import { getCollection } from 'astro:content'
+import {getCollection} from 'astro:content'
 import CategoryLayout from '../../../layouts/category.astro'
-import { Image } from 'astro:assets'
+import {Image} from 'astro:assets'
 import LayoutBlog from '../../../layouts/blog.astro'
 import {words_limit} from "~/utils/text";
 
-export async function getStaticPaths () {
+export async function getStaticPaths() {
 
   const posts = (await getCollection('blog')).sort(
     (a, b) => b.data.published_date.valueOf() - a.data.published_date.valueOf(),
@@ -16,7 +16,7 @@ export async function getStaticPaths () {
   return categories.map((category) => {
 
     return {
-      params: { name: category.id },
+      params: {name: category.id},
       props: {
         category: category,
         posts: posts.filter((post) => {
@@ -27,31 +27,31 @@ export async function getStaticPaths () {
   })
 }
 
-const { category, posts } = Astro.props
+const {category, posts} = Astro.props
 ---
-
 <CategoryLayout title={category.data.title}
                 description={category.data.description}
                 featured_image={category.data?.image?.url}>
-    <div class="categories">
+    <div class="headline" slot="headline">
         <div class="container xxl">
-            <div class="category_header">
-                <div>
-                    <div class="name">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18"
-                             height="18" viewBox="0 0 18 18" class="icon">
-                            <path fill="red" fill-rule="evenodd"
-                                  d="M2 4h14l-3.063 5L16 14H2z"></path>
-                        </svg>
-                        <span>
+            <div class="name">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18"
+                     height="18" viewBox="0 0 18 18" class="icon">
+                    <path fill="red" fill-rule="evenodd"
+                          d="M2 4h14l-3.063 5L16 14H2z"></path>
+                </svg>
+                <span>
                             CATEGORY
                         </span>
-                    </div>
-                    <div class="title">
-                      {category.data.title}
-                    </div>
-                </div>
             </div>
+            <div class="title">
+                {category.data.title}
+            </div>
+        </div>
+    </div>
+
+    <div class="categories" slot="default">
+        <div class="container xxl">
             <div class="grid">
                 <div class="posts">
                   {
@@ -83,7 +83,7 @@ const { category, posts } = Astro.props
                                       </h3>
                                       <div>
                                           <span class="description">{words_limit(post.data.description, 60, {
-                                              appendEllipsis: true
+                                            appendEllipsis: true
                                           })}</span>
                                           <time class="date"
                                                 datetime={post.data.published_date.toISOString()}>
@@ -128,7 +128,7 @@ const { category, posts } = Astro.props
                                       </h3>
                                       <div>
                                           <span class="description">{words_limit(post.data.description, 60, {
-                                              appendEllipsis: true
+                                            appendEllipsis: true
                                           })}</span>
                                           <time class="date"
                                                 datetime={post.data.published_date.toISOString()}>
@@ -183,12 +183,17 @@ const { category, posts } = Astro.props
   @use "../../../styles/scss/mixins.scss" as mixins;
   @use "../../../styles/scss/functions.scss" as functions;
 
-  $category_header: (
+  $headline: (
     display: flex,
     width: 100%,
-    justify-content: center,
-    text-align: center,
-    margin: 0 0 25px 0,
+    justify-content: start,
+    align-items: center,
+    text-align: left,
+    background: oklch(0.21 0.03 162.66),
+    padding-block: 2rem,
+    padding-inline: var(--padding-inline),
+    border-bottom: 1px solid oklch(0.25 0.04 161.59),
+    margin: 0 0 2rem 0,
     _subclasses: (
       '.name' : (
         display: inline-flex,
@@ -205,14 +210,19 @@ const { category, posts } = Astro.props
         text-transform: capitalize,
         font-weight: 600,
       )
-    )
+    ),
+    _responsive: (
+      md: (
+        padding-inline: 0,
+      ),
+    ),
   );
 
   @include mixins.generate-component(
-      $category_header,
-      '.category_header',
-      app.$config,
-      app.$theme
+    $headline,
+    '.headline',
+    app.$config,
+    app.$theme
   );
 </style>
 
@@ -228,7 +238,6 @@ const { category, posts } = Astro.props
   @use "../../../styles/scss/functions.scss" as functions;
 
   $categories: (
-    margin: 25px 0,
     _subclasses: (
       /***/
       '.grid' : (
@@ -255,10 +264,10 @@ const { category, posts } = Astro.props
                 margin: 0 0 2rem 0,
                 /***/
                 _responsive : (
-                    md: (
-                      grid-template-columns: minmax(250px, 350px) 1fr,
-                      grid-gap: 1rem,
-                    )
+                  md: (
+                    grid-template-columns: minmax(250px, 350px) 1fr,
+                    grid-gap: 1rem,
+                  )
                 ),
                 /***/
                 _subclasses: (
@@ -308,10 +317,10 @@ const { category, posts } = Astro.props
   );
 
   @include mixins.generate-component(
-      $categories,
-      '.categories',
-      app.$config,
-      app.$theme
+    $categories,
+    '.categories',
+    app.$config,
+    app.$theme
   );
 </style>
 
