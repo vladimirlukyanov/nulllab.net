@@ -1,6 +1,24 @@
 ---
 import social_image from '../../../public/placeholder-social.jpg';
-const { title, description, image = social_image } = Astro.props
+const { title, description, image = social_image, canonical } = Astro.props
+
+// Canonical URL
+// - Always absolute and built from `site` (astro.config.mjs), so it never points
+//   at localhost, a preview domain or a URL with query params (?utm_source=…).
+// - Pages are built as folders (`/post/index.html`) and linked with a trailing
+//   slash, so the canonical uses the trailing slash too (except files like `/rss.xml`).
+// - A page can override it with `canonical="/some/path/"`, or skip it with `canonical={false}`.
+const build_canonical = (path: string) => {
+  const url = new URL(path, Astro.site ?? Astro.url)
+  url.search = ''
+  url.hash = ''
+  if (!url.pathname.endsWith('/') && !/\.[a-z0-9]+$/i.test(url.pathname)) {
+    url.pathname += '/'
+  }
+  return url.href
+}
+
+const canonical_url = canonical === false ? null : build_canonical(canonical ?? Astro.url.pathname)
 ---
 
 <!-- |–––––––––––––––––––– NullLab ⚡ Development & Research | made with ❤️ ––––-––––––––––––––––––––-| -->
@@ -8,6 +26,7 @@ const { title, description, image = social_image } = Astro.props
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>{title}</title>
+{canonical_url && <link rel="canonical" href={canonical_url}/>}
 
 <slot/>
 
@@ -33,14 +52,14 @@ const { title, description, image = social_image } = Astro.props
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website"/>
-<meta property="og:url" content={Astro.url}/>
+<meta property="og:url" content={canonical_url ?? Astro.url}/>
 <meta property="og:title" content={title}/>
 <meta property="og:description" content={description}/>
 <meta property="og:image" content={new URL(image.src, Astro.url)} />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image"/>
-<meta property="twitter:url" content={Astro.url}/>
+<meta property="twitter:url" content={canonical_url ?? Astro.url}/>
 <meta property="twitter:title" content={title}/>
 <meta property="twitter:description" content={description}/>
 <meta property="twitter:image" content={new URL(image.src, Astro.url)}/>

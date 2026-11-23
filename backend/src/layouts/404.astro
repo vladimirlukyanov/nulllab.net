@@ -10,7 +10,9 @@ import Footer from "~/components/footer/index.astro";
 <!doctype html>
 <html lang="en" data-theme="dark">
   <head>
-    <Head title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <Head title={SITE_TITLE} description={SITE_DESCRIPTION} canonical={false}>
+      <meta name="robots" content="noindex" />
+    </Head>
   </head>
   <body class="preload">
     <Header />

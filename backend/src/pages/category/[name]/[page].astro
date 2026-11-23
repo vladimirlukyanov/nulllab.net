@@ -33,7 +33,8 @@ const {page, posts, category} = Astro.props;
 ---
 
 <CategoryLayout title={category.data.title} description={category.data.description}
-                featured_image={category.data?.image?.url}>
+                featured_image={category.data?.image?.url}
+                canonical={page.currentPage === 1 ? `/category/${category.id}/` : undefined}>
     <div class="categories">
         <div class="container xxl">
             <div class="category_name">

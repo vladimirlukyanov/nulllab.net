@@ -6,7 +6,7 @@ import {SITE_TITLE, SITE_DESCRIPTION} from "../consts";
 import Header from "~/components/header/index.astro";
 import Footer from "~/components/footer/index.astro";
 
-const {title, description, published_date, updated_date, featured_image} = Astro.props;
+const {title, description, published_date, updated_date, featured_image, canonical} = Astro.props;
 ---
 
 <!doctype html>
@@ -18,6 +18,7 @@ const {title, description, published_date, updated_date, featured_image} = Astro
             featured_image={featured_image}
             published_date={published_date}
             updated_date={updated_date}
+            canonical={canonical}
     />
 </head>
 <body class="preload">

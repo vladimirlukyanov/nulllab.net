@@ -30,7 +30,13 @@ export default defineConfig({
         rehypePlugins: [rehypeHeadingIds],
       }),
     }),
-    sitemap(),
+    sitemap({
+      // Keep only canonical, indexable URLs in the sitemap:
+      // - /iframe/… are noindex embed fragments
+      // - /category/<name>/1/ duplicates /category/<name>/ (canonical points there)
+      filter: (page) =>
+        !page.includes('/iframe/') && !/\/category\/[^/]+\/1\/?$/.test(page),
+    }),
     indexNow({
       key: process.env.INDEXNOW_KEY,
       location: 'indexnow'
